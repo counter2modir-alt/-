@@ -2,572 +2,2317 @@
 <html lang="fa" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    >
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 
-    <meta
-        name="theme-color"
-        content="#07111d"
-    >
+<meta name="theme-color" content="#050b14">
 
-    <meta
-        name="description"
-        content="کانتر مود روبیکا - مود منو، برنامه‌ها و ابزارهای کانتر مود"
-    >
+<meta name="description"
+      content="کانتر مود روبیکا - مود منو، برنامه‌ها و ابزارهای کانتر مود">
 
-    <title>کانتر مود</title>
+<title>کانتر مود</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+    color:#fff;
+    background:
+        radial-gradient(circle at 50% -20%,rgba(0,150,255,.14),transparent 38%),
+        linear-gradient(145deg,#03070d,#07111d 45%,#02060c);
+    font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+}
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+#particles{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.particle{
+    position:absolute;
+    width:var(--size);
+    height:var(--size);
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            rgba(255,255,255,.95),
+            rgba(90,190,255,.75) 18%,
+            rgba(0,115,255,.3) 55%,
+            transparent 75%
+        );
+
+    box-shadow:
+        0 0 10px rgba(0,155,255,.45),
+        0 0 25px rgba(0,115,255,.22);
+
+    opacity:var(--opacity);
+
+    animation:
+        floatParticle var(--duration) linear infinite;
+
+    animation-delay:var(--delay);
+}
+
+@keyframes floatParticle{
+
+    0%{
+        transform:
+            translate3d(0,110vh,0)
+            scale(.7);
+    }
+
+    25%{
+        transform:
+            translate3d(var(--x1),75vh,0)
+            scale(1);
+    }
+
+    50%{
+        transform:
+            translate3d(var(--x2),45vh,0)
+            scale(.85);
+    }
+
+    75%{
+        transform:
+            translate3d(var(--x3),18vh,0)
+            scale(1.08);
+    }
+
+    100%{
+        transform:
+            translate3d(var(--x4),-15vh,0)
+            scale(.65);
+    }
+}
+
+/* =====================================================
+   MENU BUTTON
+===================================================== */
+
+.menu-button{
+    position:fixed;
+
+    top:18px;
+    right:18px;
+
+    width:52px;
+    height:52px;
+
+    z-index:1001;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:17px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.13),
+            rgba(255,255,255,.035)
+        );
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.15),
+        0 10px 35px rgba(0,0,0,.35),
+        0 0 25px rgba(0,130,255,.12);
+
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+
+    font-size:25px;
+    cursor:pointer;
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        border-color .25s ease;
+}
+
+.menu-button:hover{
+    transform:scale(1.05);
+    border-color:rgba(70,180,255,.45);
+}
+
+.menu-button:active{
+    transform:scale(.92);
+}
+
+/* =====================================================
+   OVERLAY
+===================================================== */
+
+.overlay{
+    position:fixed;
+    inset:0;
+
+    z-index:999;
+
+    background:rgba(0,0,0,.58);
+
+    opacity:0;
+    visibility:hidden;
+
+    backdrop-filter:blur(5px);
+    -webkit-backdrop-filter:blur(5px);
+
+    transition:
+        opacity .3s ease,
+        visibility .3s ease;
+}
+
+.overlay.open{
+    opacity:1;
+    visibility:visible;
+}
+
+/* =====================================================
+   SIDE MENU
+===================================================== */
+
+.side-menu{
+    position:fixed;
+
+    top:0;
+    right:0;
+
+    width:min(350px,88vw);
+    height:100vh;
+
+    z-index:1000;
+
+    padding:88px 20px 25px;
+
+    overflow-y:auto;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(13,28,46,.91),
+            rgba(4,11,20,.96)
+        );
+
+    border-left:1px solid rgba(255,255,255,.12);
+
+    box-shadow:
+        -20px 0 70px rgba(0,0,0,.45),
+        inset 1px 0 rgba(255,255,255,.05);
+
+    backdrop-filter:blur(30px);
+    -webkit-backdrop-filter:blur(30px);
+
+    transform:translateX(105%);
+
+    transition:
+        transform .35s cubic-bezier(.22,.8,.25,1);
+
+    visibility:hidden;
+}
+
+.side-menu.open{
+    transform:translateX(0);
+    visibility:visible;
+}
+
+/* =====================================================
+   MENU LOGO
+===================================================== */
+
+.menu-logo{
+    display:block;
+
+    width:96px;
+    height:96px;
+
+    margin:0 auto 14px;
+
+    object-fit:cover;
+
+    border-radius:27px;
+
+    border:2px solid rgba(255,255,255,.2);
+
+    box-shadow:
+        0 0 0 5px rgba(255,255,255,.035),
+        0 15px 45px rgba(0,120,255,.2);
+
+    background:#07111d;
+
+    cursor:pointer;
+}
+
+/* =====================================================
+   MENU TITLE
+===================================================== */
+
+.menu-title{
+    text-align:center;
+
+    font-size:22px;
+    font-weight:900;
+
+    letter-spacing:-.5px;
+
+    color:#fff;
+}
+
+.menu-subtitle{
+    margin:7px 0 25px;
+
+    text-align:center;
+
+    color:#8fa5bc;
+
+    font-size:13px;
+}
+
+/* =====================================================
+   MENU LINKS
+===================================================== */
+
+.menu-link{
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    width:100%;
+
+    min-height:53px;
+
+    margin:8px 0;
+    padding:0 15px;
+
+    border-radius:16px;
+
+    border:1px solid rgba(255,255,255,.07);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025)
+        );
+
+    color:#eaf5ff;
+
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:700;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.05);
+
+    transition:
+        transform .22s ease,
+        background .22s ease,
+        border-color .22s ease;
+}
+
+.menu-link:hover{
+    transform:translateX(-4px);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(20,145,255,.18),
+            rgba(255,255,255,.04)
+        );
+
+    border-color:rgba(70,180,255,.22);
+}
+
+.menu-link span:first-child{
+    width:30px;
+    height:30px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,.06);
+
+    font-size:17px;
+}
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+main{
+    position:relative;
+    z-index:2;
+
+    width:100%;
+    min-height:100vh;
+
+    padding:95px 15px 35px;
+}
+
+/* =====================================================
+   PAGES
+===================================================== */
+
+.page{
+    display:none;
+
+    width:100%;
+    max-width:1150px;
+
+    margin:0 auto;
+}
+
+.page.active{
+    display:block;
+
+    animation:
+        pageIn .45s ease;
+}
+
+@keyframes pageIn{
+
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =====================================================
+   GLASS CARD
+===================================================== */
+
+.glass-card{
+
+    position:relative;
+
+    width:100%;
+
+    padding:34px;
+
+    border-radius:30px;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.105),
+            rgba(255,255,255,.035)
+        );
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.12),
+        0 25px 80px rgba(0,0,0,.35),
+        0 0 70px rgba(0,100,255,.07);
+
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+}
+
+/* =====================================================
+   MAIN LOGO
+===================================================== */
+
+.main-logo{
+
+    display:block;
+
+    width:145px;
+    height:145px;
+
+    margin:4px auto 22px;
+
+    object-fit:cover;
+
+    border-radius:34px;
+
+    border:2px solid rgba(255,255,255,.22);
+
+    box-shadow:
+        0 0 0 7px rgba(255,255,255,.035),
+        0 20px 55px rgba(0,115,255,.22);
+
+    background:#07111d;
+}
+
+/* =====================================================
+   TITLES
+===================================================== */
+
+h1{
+    text-align:center;
+
+    font-size:
+        clamp(28px,6vw,43px);
+
+    font-weight:950;
+
+    letter-spacing:-1px;
+
+    text-shadow:
+        0 4px 25px rgba(0,150,255,.22);
+}
+
+.subtitle{
+
+    margin-top:9px;
+
+    text-align:center;
+
+    color:#91a9c1;
+
+    font-size:14px;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.buttons{
+
+    width:min(560px,100%);
+
+    margin:32px auto 0;
+
+    display:grid;
+
+    gap:12px;
+}
+
+.action-button{
+
+    width:100%;
+    min-height:53px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:13px 18px;
+
+    border-radius:16px;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.09),
+            rgba(255,255,255,.035)
+        );
+
+    color:#fff;
+
+    font-family:inherit;
+    font-size:14px;
+    font-weight:800;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.09),
+        0 10px 30px rgba(0,0,0,.16);
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.action-button:hover{
+
+    transform:translateY(-2px);
+
+    border-color:rgba(75,185,255,.32);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(20,145,255,.17),
+            rgba(255,255,255,.055)
+        );
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.12),
+        0 15px 35px rgba(0,90,180,.14);
+}
+
+.action-button:active{
+    transform:scale(.98);
+}
+
+/* =====================================================
+   PAGE TITLE
+===================================================== */
+
+.page-title{
+
+    margin:8px 0 27px;
+
+    text-align:center;
+
+    font-size:
+        clamp(23px,5vw,34px);
+
+    font-weight:900;
+}
+
+/* =====================================================
+   BACK
+===================================================== */
+
+.back-button{
+    width:auto;
+    min-width:130px;
+    margin-bottom:15px;
+}
+
+/* =====================================================
+   CONTACT CARDS
+===================================================== */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:15px;
+}
+
+.contact-card{
+
+    min-height:205px;
+
+    padding:21px;
+
+    border-radius:22px;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025)
+        );
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.07),
+        0 15px 35px rgba(0,0,0,.18);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease;
+}
+
+.contact-card:hover{
+
+    transform:translateY(-5px);
+
+    border-color:rgba(80,185,255,.28);
+}
+
+.contact-card h3{
+
+    margin-bottom:9px;
+
+    font-size:18px;
+}
+
+.contact-card p{
+
+    margin-bottom:17px;
+
+    color:#8fa5bb;
+
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+.contact-card .action-button{
+    width:100%;
+}
+
+/* =====================================================
+   DOWNLOADS
+===================================================== */
+
+.download-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:16px;
+}
+
+.download-card{
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025)
+        );
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.07),
+        0 15px 35px rgba(0,0,0,.18);
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease;
+}
+
+.download-card:hover{
+
+    transform:translateY(-5px);
+
+    border-color:rgba(80,185,255,.28);
+}
+
+.download-card img{
+
+    width:100%;
+    height:190px;
+
+    display:block;
+
+    object-fit:cover;
+}
+
+.download-body{
+
+    padding:17px;
+}
+
+.download-body h3{
+
+    margin-bottom:13px;
+
+    font-size:15px;
+
+    line-height:1.7;
+}
+
+/* =====================================================
+   APPS
+===================================================== */
+
+.apps-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:18px;
+}
+
+.app-card{
+
+    overflow:hidden;
+
+    border-radius:24px;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025)
+        );
+}
+
+.app-card img{
+
+    width:100%;
+    height:250px;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+.app-body{
+    padding:20px;
+}
+
+.app-body h3{
+    margin-bottom:14px;
+}
+
+/* =====================================================
+   VIDEO
+===================================================== */
+
+.video-wrapper{
+
+    position:relative;
+
+    width:100%;
+
+    margin-bottom:18px;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    border:1px solid rgba(255,255,255,.11);
+
+    background:#000;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.3);
+}
+
+.video-wrapper iframe,
+.video-wrapper video{
+
+    display:block;
+
+    width:100%;
+
+    aspect-ratio:16/9;
+
+    border:0;
+
+    background:#000;
+}
+
+/* =====================================================
+   INLINE CONTACT LOGOS
+===================================================== */
+
+.contact-logo{
+
+    width:58px;
+    height:58px;
+
+    margin-bottom:13px;
+
+    padding:11px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.12),
+            rgba(255,255,255,.035)
+        );
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.2);
+}
+
+.contact-logo svg{
+
+    width:100%;
+    height:100%;
+
+    display:block;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:850px){
+
+    .cards{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+    }
+
+    .download-grid{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+    }
+
+}
+
+@media(max-width:600px){
+
+    .menu-button{
+        top:12px;
+        right:12px;
+
+        width:48px;
+        height:48px;
+
+        border-radius:15px;
+    }
+
+    main{
+        padding:
+            78px 10px 25px;
+    }
+
+    .glass-card{
+        padding:22px 14px;
+
+        border-radius:24px;
+    }
+
+    .main-logo{
+        width:125px;
+        height:125px;
+
+        border-radius:29px;
+    }
+
+    .cards,
+    .download-grid,
+    .apps-grid{
+        grid-template-columns:1fr;
+    }
+
+    .download-card img{
+        height:auto;
+        max-height:270px;
+    }
+
+    .app-card img{
+        height:auto;
+    }
+
+    .side-menu{
+        width:min(330px,91vw);
+        padding-top:78px;
+    }
+
+}
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-    <!-- =========================================
-         پس زمینه متحرک
-    ========================================== -->
+<!-- =====================================================
+     توپک‌های متحرک
+===================================================== -->
 
-    <div id="particles"></div>
+<div id="particles"></div>
 
 
-    <!-- =========================================
-         دکمه منوی اصلی
-    ========================================== -->
+<!-- =====================================================
+     دکمه منو
+===================================================== -->
 
-    <button
-        id="menuButton"
-        class="menu-button"
-        aria-label="باز کردن منو"
-        type="button"
+<button
+    id="menuButton"
+    class="menu-button"
+    aria-label="باز کردن منو"
+    aria-expanded="false"
+    type="button"
+>
+    <span id="menuIcon">☰</span>
+</button>
+
+
+<!-- =====================================================
+     لایه پشت منو
+===================================================== -->
+
+<div id="overlay" class="overlay"></div>
+
+
+<!-- =====================================================
+     منوی کناری
+===================================================== -->
+
+<aside id="sideMenu" class="side-menu">
+
+    <img
+        id="menuLogo"
+        class="menu-logo"
+        alt="کانتر مود"
     >
-        ☰
-    </button>
+
+    <div id="menuTitle" class="menu-title">
+        کانتر مود
+    </div>
+
+    <div id="menuSubtitle" class="menu-subtitle">
+        کانتر مود روبیکا
+    </div>
 
 
-    <!-- =========================================
-         لایه تاریک پشت منو
-    ========================================== -->
-
-    <div
-        id="overlay"
-        class="overlay"
-    ></div>
-
-
-    <!-- =========================================
-         منوی کناری
-    ========================================== -->
-
-    <aside
-        id="sideMenu"
-        class="side-menu"
+    <a
+        id="menuHome"
+        class="menu-link"
+        href="#"
+        data-page="home"
     >
+        <span>🏠</span>
+        <span>صفحه اصلی</span>
+    </a>
 
+
+    <a
+        class="menu-link"
+        href="#"
+        data-page="downloads"
+    >
+        <span>🎮</span>
+        <span>مود منوها</span>
+    </a>
+
+
+    <a
+        class="menu-link"
+        href="#"
+        data-page="apps"
+    >
+        <span>📱</span>
+        <span>برنامه‌ها</span>
+    </a>
+
+
+    <a
+        class="menu-link"
+        href="#"
+        data-page="tutorial"
+    >
+        <span>📖</span>
+        <span>راهنمای نصب</span>
+    </a>
+
+
+    <a
+        class="menu-link"
+        href="#"
+        id="menuAI"
+    >
+        <span>🤖</span>
+        <span>هوش مصنوعی آفلاین</span>
+    </a>
+
+
+    <a
+        class="menu-link"
+        href="#"
+        data-page="contact"
+    >
+        <span>📞</span>
+        <span>ارتباط با ما</span>
+    </a>
+
+
+    <a
+        class="menu-link"
+        id="menuChannel"
+        target="_blank"
+        rel="noopener"
+    >
+        <span>📢</span>
+        <span>@Counter2Mod</span>
+    </a>
+
+
+    <a
+        class="menu-link"
+        id="menuCreator"
+        target="_blank"
+        rel="noopener"
+    >
+        <span>👤</span>
+        <span>سازنده ابوالفضل کاظمی</span>
+    </a>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="page-home" class="page active">
+
+    <div class="glass-card">
+
+        <!-- همان لوگوی قبلی -->
         <img
-            id="menuLogo"
-            class="menu-logo"
+            id="mainLogo"
+            class="main-logo"
+            src="https://cdn.imgurl.ir/uploads/x012403_InShot_20260625_163753784.png"
             alt="کانتر مود"
         >
 
-        <div
-            id="menuTitle"
-            class="menu-title"
-        >
+        <h1 id="mainTitle">
             کانتر مود
-        </div>
+        </h1>
 
-        <div
-            id="menuSubtitle"
-            class="menu-subtitle"
-        >
+        <p id="mainSubtitle" class="subtitle">
             کانتر مود روبیکا
+        </p>
+
+
+        <div class="buttons">
+
+            <a
+                id="channelButton"
+                class="action-button"
+                target="_blank"
+                rel="noopener"
+            >
+                📢 ورود به کانال روبیکا
+            </a>
+
+
+            <button
+                class="action-button"
+                type="button"
+                data-page="downloads"
+            >
+                🎮 دانلود مود منو
+            </button>
+
+
+            <button
+                class="action-button"
+                type="button"
+                data-page="tutorial"
+            >
+                📖 آموزش نصب
+            </button>
+
+
+            <a
+                id="aiButton"
+                class="action-button"
+                target="_blank"
+                rel="noopener"
+            >
+                🤖 هوش مصنوعی آفلاین
+            </a>
+
+
+            <button
+                class="action-button"
+                type="button"
+                data-page="contact"
+            >
+                📞 ارتباط با ما
+            </button>
+
         </div>
 
+    </div>
 
-        <a
-            id="menuHome"
-            class="menu-link"
-            href="#"
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section id="page-contact" class="page">
+
+    <div class="glass-card">
+
+        <button
+            class="action-button back-button"
+            type="button"
             data-page="home"
         >
-            <span>🏠</span>
-            <span>صفحه اصلی</span>
-        </a>
+            ← بازگشت
+        </button>
+
+        <h2 class="page-title">
+            ارتباط با ما
+        </h2>
 
 
-        <a
-            class="menu-link"
-            href="#"
-            data-page="downloads"
-        >
-            <span>🎮</span>
-            <span>مود منوها</span>
-        </a>
+        <div class="cards">
 
 
-        <a
-            class="menu-link"
-            href="#"
-            data-page="apps"
-        >
-            <span>📱</span>
-            <span>برنامه‌ها</span>
-        </a>
+            <!-- روبیکا -->
 
+            <div class="contact-card">
 
-        <a
-            class="menu-link"
-            href="#"
-            data-page="tutorial"
-        >
-            <span>📖</span>
-            <span>راهنمای نصب</span>
-        </a>
+                <div class="contact-logo">
 
+                    <svg viewBox="0 0 64 64"
+                         xmlns="http://www.w3.org/2000/svg">
 
-        <a
-            class="menu-link"
-            href="#"
-            id="menuAI"
-        >
-            <span>🤖</span>
-            <span>هوش مصنوعی آفلاین</span>
-        </a>
+                        <rect
+                            x="5"
+                            y="5"
+                            width="54"
+                            height="54"
+                            rx="16"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="4"
+                        />
 
+                        <path
+                            d="M20 25
+                               C20 20 24 17 29 17
+                               H36
+                               C41 17 45 21 45 26
+                               V38
+                               C45 43 41 47 36 47
+                               H29
+                               C24 47 20 43 20 38Z"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="3"
+                        />
 
-        <a
-            class="menu-link"
-            href="#"
-            data-page="contact"
-        >
-            <span>📞</span>
-            <span>ارتباط با ما</span>
-        </a>
+                        <circle cx="29" cy="32" r="3" fill="#fff"/>
+                        <circle cx="37" cy="32" r="3" fill="#fff"/>
 
+                    </svg>
 
-        <a
-            class="menu-link"
-            id="menuChannel"
-            target="_blank"
-            rel="noopener"
-        >
-            <span>📢</span>
-            <span>@Counter2Mod</span>
-        </a>
+                </div>
 
+                <h3>📢 روبیکا</h3>
 
-        <a
-            class="menu-link"
-            id="menuCreator"
-            target="_blank"
-            rel="noopener"
-        >
-            <span>👤</span>
-            <span>سازنده ابوالفضل کاظمی</span>
-        </a>
-
-    </aside>
-
-
-    <!-- =========================================
-         محتوای اصلی
-    ========================================== -->
-
-    <main>
-
-
-        <!-- =====================================
-             صفحه اصلی
-        ====================================== -->
-
-        <section
-            id="page-home"
-            class="page active"
-        >
-
-            <div class="glass-card">
-
-                <img
-                    id="mainLogo"
-                    class="main-logo"
-                    alt="کانتر مود"
-                >
-
-                <h1 id="mainTitle">
-                    کانتر مود
-                </h1>
-
-                <p
-                    id="mainSubtitle"
-                    class="subtitle"
-                >
-                    کانتر مود روبیکا
+                <p>
+                    کانال رسمی کانتر مود
                 </p>
 
+                <a
+                    id="contactChannel"
+                    class="action-button"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    ورود به کانال
+                </a>
 
-                <div class="buttons">
-
-
-                    <a
-                        id="channelButton"
-                        class="action-button"
-                        target="_blank"
-                        rel="noopener"
-                    >
-                        📢 ورود به کانال روبیکا
-                    </a>
+            </div>
 
 
-                    <button
-                        class="action-button"
-                        type="button"
-                        data-page="downloads"
-                    >
-                        🎮 دانلود مود منو
-                    </button>
+            <!-- سازنده -->
 
+            <div class="contact-card">
 
-                    <button
-                        class="action-button"
-                        type="button"
-                        data-page="tutorial"
-                    >
-                        📖 آموزش نصب
-                    </button>
+                <div class="contact-logo">
 
+                    <svg viewBox="0 0 64 64"
+                         xmlns="http://www.w3.org/2000/svg">
 
-                    <a
-                        id="aiButton"
-                        class="action-button"
-                        target="_blank"
-                        rel="noopener"
-                    >
-                        🤖 هوش مصنوعی آفلاین
-                    </a>
+                        <circle
+                            cx="32"
+                            cy="22"
+                            r="10"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="4"
+                        />
 
+                        <path
+                            d="M13 51
+                               C15 39 22 34 32 34
+                               C42 34 49 39 51 51"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="4"
+                            stroke-linecap="round"
+                        />
 
-                    <button
-                        class="action-button"
-                        type="button"
-                        data-page="contact"
-                    >
-                        📞 ارتباط با ما
-                    </button>
-
+                    </svg>
 
                 </div>
 
+                <h3>👤 سازنده</h3>
+
+                <p>
+                    سازنده ابوالفضل کاظمی
+                </p>
+
+                <a
+                    id="contactCreator"
+                    class="action-button"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    ارتباط با سازنده
+                </a>
+
             </div>
 
-        </section>
 
+            <!-- تلگرام -->
 
+            <div class="contact-card">
 
-        <!-- =====================================
-             صفحه ارتباط
-        ====================================== -->
+                <div class="contact-logo">
 
-        <section
-            id="page-contact"
-            class="page"
-        >
+                    <svg viewBox="0 0 64 64"
+                         xmlns="http://www.w3.org/2000/svg">
 
-            <div class="glass-card">
+                        <path
+                            d="M54 10
+                               L10 28
+                               C7 29 7 32 10 33
+                               L22 37
+                               L27 51
+                               C28 54 31 54 33 52
+                               L40 44
+                               L51 52
+                               C54 54 56 52 57 49
+                               L62 14
+                               C63 10 59 8 54 10Z"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="3"
+                            stroke-linejoin="round"
+                        />
 
-                <button
-                    class="action-button back-button"
-                    type="button"
-                    data-page="home"
-                >
-                    ← بازگشت
-                </button>
+                        <path
+                            d="M22 37
+                               L52 17
+                               L32 42
+                               L40 44"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="3"
+                            stroke-linejoin="round"
+                        />
 
-                <h2 class="page-title">
-                    ارتباط با ما
-                </h2>
-
-
-                <div class="cards">
-
-
-                    <div class="contact-card">
-
-                        <h3>
-                            📢 روبیکا
-                        </h3>
-
-                        <p>
-                            کانال رسمی کانتر مود
-                        </p>
-
-                        <a
-                            id="contactChannel"
-                            class="action-button"
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            ورود به کانال
-                        </a>
-
-                    </div>
-
-
-
-                    <div class="contact-card">
-
-                        <h3>
-                            👤 سازنده
-                        </h3>
-
-                        <p>
-                            سازنده ابوالفضل کاظمی
-                        </p>
-
-                        <a
-                            id="contactCreator"
-                            class="action-button"
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            ارتباط با سازنده
-                        </a>
-
-                    </div>
-
-
-
-                    <div class="contact-card">
-
-                        <h3>
-                            ✈️ تلگرام
-                        </h3>
-
-                        <p>
-                            کانال تلگرام کانتر مود
-                        </p>
-
-                        <a
-                            id="contactTelegram"
-                            class="action-button"
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            ورود به تلگرام
-                        </a>
-
-                    </div>
-
-
-
-                    <div class="contact-card">
-
-                        <h3>
-                            💬 بله
-                        </h3>
-
-                        <p>
-                            کانتر مود در پیام‌رسان بله
-                        </p>
-
-                        <a
-                            id="contactBale"
-                            class="action-button"
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            ورود به بله
-                        </a>
-
-                    </div>
-
-
-
-                    <div class="contact-card">
-
-                        <h3>
-                            🎬 آپارات
-                        </h3>
-
-                        <p>
-                            ویدیوهای کانتر مود
-                        </p>
-
-                        <a
-                            id="contactAparat"
-                            class="action-button"
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            مشاهده آپارات
-                        </a>
-
-                    </div>
-
-
-
-                    <div class="contact-card">
-
-                        <h3>
-                            👥 گروه روبیکا
-                        </h3>
-
-                        <p>
-                            ورود به گروه کانتر مود
-                        </p>
-
-                        <a
-                            id="contactGroup"
-                            class="action-button"
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            ورود به گروه
-                        </a>
-
-                    </div>
+                    </svg>
 
                 </div>
 
-            </div>
+                <h3>✈️ تلگرام</h3>
 
-        </section>
+                <p>
+                    کانال تلگرام کانتر مود
+                </p>
 
-
-
-        <!-- =====================================
-             صفحه دانلود مودها
-        ====================================== -->
-
-        <section
-            id="page-downloads"
-            class="page"
-        >
-
-            <div class="glass-card">
-
-                <button
-                    class="action-button back-button"
-                    type="button"
-                    data-page="home"
+                <a
+                    id="contactTelegram"
+                    class="action-button"
+                    target="_blank"
+                    rel="noopener"
                 >
-                    ← بازگشت
-                </button>
-
-                <h2 class="page-title">
-                    دانلود مود منو
-                </h2>
-
-                <div
-                    id="downloadsGrid"
-                    class="download-grid"
-                ></div>
+                    ورود به تلگرام
+                </a>
 
             </div>
 
-        </section>
 
+            <!-- بله -->
 
+            <div class="contact-card">
 
-        <!-- =====================================
-             صفحه آموزش
-        ====================================== -->
+                <div class="contact-logo">
 
-        <section
-            id="page-tutorial"
-            class="page"
-        >
+                    <svg viewBox="0 0 64 64"
+                         xmlns="http://www.w3.org/2000/svg">
 
-            <div class="glass-card">
+                        <path
+                            d="M16 12
+                               H48
+                               C53 12 56 16 55 21
+                               L50 46
+                               C49 51 45 54 40 54
+                               H24
+                               C19 54 15 51 14 46
+                               L9 21
+                               C8 16 11 12 16 12Z"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="4"
+                        />
 
-                <button
-                    class="action-button back-button"
-                    type="button"
-                    data-page="home"
-                >
-                    ← بازگشت
-                </button>
+                        <path
+                            d="M22 27
+                               C27 23 37 23 42 27"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="3"
+                            stroke-linecap="round"
+                        />
 
-                <h2 class="page-title">
-                    آموزش نصب
-                </h2>
+                        <circle cx="25" cy="34" r="3" fill="#fff"/>
+                        <circle cx="39" cy="34" r="3" fill="#fff"/>
 
-
-                <div class="video-wrapper">
-
-                    <iframe
-                        id="tutorialFrame"
-                        allowfullscreen
-                        loading="lazy"
-                    ></iframe>
+                    </svg>
 
                 </div>
 
+                <h3>💬 بله</h3>
 
-                <div class="video-wrapper">
+                <p>
+                    کانتر مود در پیام‌رسان بله
+                </p>
 
-                    <video
-                        id="tutorialVideo"
-                        controls
-                        playsinline
-                        preload="metadata"
-                    ></video>
+                <a
+                    id="contactBale"
+                    class="action-button"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    ورود به بله
+                </a>
+
+            </div>
+
+
+            <!-- آپارات -->
+
+            <div class="contact-card">
+
+                <div class="contact-logo">
+
+                    <svg viewBox="0 0 64 64"
+                         xmlns="http://www.w3.org/2000/svg">
+
+                        <rect
+                            x="8"
+                            y="16"
+                            width="48"
+                            height="32"
+                            rx="10"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="4"
+                        />
+
+                        <path
+                            d="M28 25
+                               L43 32
+                               L28 39Z"
+                            fill="#fff"
+                        />
+
+                    </svg>
 
                 </div>
 
-            </div>
+                <h3>🎬 آپارات</h3>
 
-        </section>
+                <p>
+                    ویدیوهای کانتر مود
+                </p>
 
-
-
-        <!-- =====================================
-             صفحه برنامه‌ها
-        ====================================== -->
-
-        <section
-            id="page-apps"
-            class="page"
-        >
-
-            <div class="glass-card">
-
-                <button
-                    class="action-button back-button"
-                    type="button"
-                    data-page="home"
+                <a
+                    id="contactAparat"
+                    class="action-button"
+                    target="_blank"
+                    rel="noopener"
                 >
-                    ← بازگشت
-                </button>
-
-                <h2 class="page-title">
-                    برنامه‌ها
-                </h2>
-
-
-                <div
-                    id="appsGrid"
-                    class="apps-grid"
-                ></div>
+                    مشاهده آپارات
+                </a>
 
             </div>
 
-        </section>
+
+            <!-- گروه روبیکا -->
+
+            <div class="contact-card">
+
+                <div class="contact-logo">
+
+                    <svg viewBox="0 0 64 64"
+                         xmlns="http://www.w3.org/2000/svg">
+
+                        <circle
+                            cx="24"
+                            cy="25"
+                            r="8"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="4"
+                        />
+
+                        <circle
+                            cx="42"
+                            cy="28"
+                            r="7"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="4"
+                        />
+
+                        <path
+                            d="M10 50
+                               C11 40 16 35 24 35
+                               C32 35 37 40 38 50"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="4"
+                            stroke-linecap="round"
+                        />
+
+                        <path
+                            d="M36 38
+                               C44 36 51 41 53 50"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="4"
+                            stroke-linecap="round"
+                        />
+
+                    </svg>
+
+                </div>
+
+                <h3>👥 گروه روبیکا</h3>
+
+                <p>
+                    ورود به گروه کانتر مود
+                </p>
+
+                <a
+                    id="contactGroup"
+                    class="action-button"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    ورود به گروه
+                </a>
+
+            </div>
 
 
-    </main>
+        </div>
+
+    </div>
+
+</section>
 
 
-    <!-- =========================================
-         اطلاعات سایت
-    ========================================== -->
+<!-- =====================================================
+     DOWNLOADS
+===================================================== -->
 
-    <script src="data.js"></script>
+<section id="page-downloads" class="page">
 
-    <script src="script.js"></script>
+    <div class="glass-card">
+
+        <button
+            class="action-button back-button"
+            type="button"
+            data-page="home"
+        >
+            ← بازگشت
+        </button>
+
+        <h2 class="page-title">
+            دانلود مود منو
+        </h2>
+
+        <div
+            id="downloadsGrid"
+            class="download-grid"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TUTORIAL
+===================================================== -->
+
+<section id="page-tutorial" class="page">
+
+    <div class="glass-card">
+
+        <button
+            class="action-button back-button"
+            type="button"
+            data-page="home"
+        >
+            ← بازگشت
+        </button>
+
+        <h2 class="page-title">
+            آموزش نصب
+        </h2>
+
+
+        <div class="video-wrapper">
+
+            <iframe
+                id="tutorialFrame"
+                allowfullscreen
+                loading="lazy"
+            ></iframe>
+
+        </div>
+
+
+        <div class="video-wrapper">
+
+            <video
+                id="tutorialVideo"
+                controls
+                playsinline
+                preload="metadata"
+            ></video>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     APPS
+===================================================== -->
+
+<section id="page-apps" class="page">
+
+    <div class="glass-card">
+
+        <button
+            class="action-button back-button"
+            type="button"
+            data-page="home"
+        >
+            ← بازگشت
+        </button>
+
+        <h2 class="page-title">
+            برنامه‌ها
+        </h2>
+
+        <div
+            id="appsGrid"
+            class="apps-grid"
+        ></div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     DATA
+===================================================== -->
+
+<script src="data.js"></script>
+
+
+<!-- =====================================================
+     MAIN SCRIPT
+===================================================== -->
+
+<script>
+
+(function(){
+
+"use strict";
+
+
+/* =====================================================
+   عناصر
+===================================================== */
+
+const menuButton =
+    document.getElementById("menuButton");
+
+const menuIcon =
+    document.getElementById("menuIcon");
+
+const sideMenu =
+    document.getElementById("sideMenu");
+
+const overlay =
+    document.getElementById("overlay");
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+let menuOpen = false;
+
+function openMenu(){
+
+    menuOpen = true;
+
+    sideMenu.classList.add("open");
+
+    overlay.classList.add("open");
+
+    menuButton.setAttribute(
+        "aria-expanded",
+        "true"
+    );
+
+    menuButton.setAttribute(
+        "aria-label",
+        "بستن منو"
+    );
+
+    menuIcon.textContent = "×";
+}
+
+
+function closeMenu(){
+
+    menuOpen = false;
+
+    sideMenu.classList.remove("open");
+
+    overlay.classList.remove("open");
+
+    menuButton.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
+    menuButton.setAttribute(
+        "aria-label",
+        "باز کردن منو"
+    );
+
+    menuIcon.textContent = "☰";
+}
+
+
+function toggleMenu(){
+
+    if(menuOpen){
+        closeMenu();
+    }else{
+        openMenu();
+    }
+
+}
+
+
+menuButton.addEventListener(
+    "click",
+    toggleMenu
+);
+
+
+overlay.addEventListener(
+    "click",
+    closeMenu
+);
+
+
+/* =====================================================
+   ESC
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "Escape"){
+            closeMenu();
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+function showPage(name){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(function(page){
+
+            page.classList.remove("active");
+
+        });
+
+
+    const target =
+        document.getElementById(
+            "page-" + name
+        );
+
+
+    if(target){
+        target.classList.add("active");
+    }
+
+
+    closeMenu();
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+document
+    .querySelectorAll("[data-page]")
+    .forEach(function(element){
+
+        element.addEventListener(
+            "click",
+            function(e){
+
+                e.preventDefault();
+
+                const page =
+                    element.getAttribute(
+                        "data-page"
+                    );
+
+                if(page){
+                    showPage(page);
+                }
+
+            }
+        );
+
+    });
+
+
+/* =====================================================
+   LINKS
+===================================================== */
+
+const links = {
+
+    channel:
+        "https://rubika.ir/Counter2Mod",
+
+    creator:
+        "https://rubika.ir/Abolfazl_Kazemi_SFG",
+
+    telegram:
+        "https://t.me/Counter2Mod",
+
+    bale:
+        "https://ble.ir/Countermod",
+
+    aparat:
+        "https://www.aparat.com/Abolfazl_Hakerr/shorts",
+
+    group:
+        "https://rubika.ir/joing/BAFCGFBCE0SVOLBSWKUNPCLEJNAMITSH",
+
+    ai:
+        "https://holobot.ir/s/html/%D9%87%D9%88%D8%B4%20%D9%85%D8%B5%D9%86%D9%88%D8%B9%DB%8C%20%D8%A2%D9%81%D9%84%D8%A7%DB%8C%D9%86.html"
+
+};
+
+
+/* =====================================================
+   SET LINK
+===================================================== */
+
+function setLink(id,url){
+
+    const el =
+        document.getElementById(id);
+
+    if(el){
+        el.href = url;
+    }
+
+}
+
+
+setLink("channelButton",links.channel);
+
+setLink("contactChannel",links.channel);
+
+setLink("contactCreator",links.creator);
+
+setLink("contactTelegram",links.telegram);
+
+setLink("contactBale",links.bale);
+
+setLink("contactAparat",links.aparat);
+
+setLink("contactGroup",links.group);
+
+setLink("menuChannel",links.channel);
+
+setLink("menuCreator",links.creator);
+
+setLink("aiButton",links.ai);
+
+setLink("menuAI",links.ai);
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+const logoURL =
+    "https://cdn.imgurl.ir/uploads/x012403_InShot_20260625_163753784.png";
+
+
+const mainLogo =
+    document.getElementById("mainLogo");
+
+const menuLogo =
+    document.getElementById("menuLogo");
+
+
+if(mainLogo){
+    mainLogo.src = logoURL;
+}
+
+if(menuLogo){
+    menuLogo.src = logoURL;
+}
+
+
+/* =====================================================
+   THREE TAP ADMIN
+===================================================== */
+
+let tapCount = 0;
+
+let tapTimer = null;
+
+
+function adminTripleTap(){
+
+    tapCount++;
+
+    clearTimeout(tapTimer);
+
+
+    tapTimer =
+        setTimeout(
+            function(){
+
+                tapCount = 0;
+
+            },
+            650
+        );
+
+
+    if(tapCount >= 3){
+
+        tapCount = 0;
+
+        window.location.href =
+            "admin.html";
+
+    }
+
+}
+
+
+if(menuLogo){
+
+    menuLogo.addEventListener(
+        "click",
+        adminTripleTap
+    );
+
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+const particles =
+    document.getElementById("particles");
+
+
+function createParticles(){
+
+    if(!particles){
+        return;
+    }
+
+
+    particles.innerHTML = "";
+
+
+    const count =
+        window.innerWidth < 600
+            ? 28
+            : 45;
+
+
+    for(let i=0;i<count;i++){
+
+        const p =
+            document.createElement("span");
+
+
+        p.className =
+            "particle";
+
+
+        const size =
+            Math.random() * 6 + 2;
+
+
+        const duration =
+            Math.random() * 18 + 15;
+
+
+        const delay =
+            Math.random() * -30;
+
+
+        const opacity =
+            Math.random() * .5 + .2;
+
+
+        const x1 =
+            (Math.random() * 180 - 90) + "px";
+
+
+        const x2 =
+            (Math.random() * 260 - 130) + "px";
+
+
+        const x3 =
+            (Math.random() * 180 - 90) + "px";
+
+
+        const x4 =
+            (Math.random() * 300 - 150) + "px";
+
+
+        p.style.setProperty(
+            "--size",
+            size + "px"
+        );
+
+        p.style.setProperty(
+            "--duration",
+            duration + "s"
+        );
+
+        p.style.setProperty(
+            "--delay",
+            delay + "s"
+        );
+
+        p.style.setProperty(
+            "--opacity",
+            opacity
+        );
+
+        p.style.setProperty(
+            "--x1",
+            x1
+        );
+
+        p.style.setProperty(
+            "--x2",
+            x2
+        );
+
+        p.style.setProperty(
+            "--x3",
+            x3
+        );
+
+        p.style.setProperty(
+            "--x4",
+            x4
+        );
+
+
+        p.style.left =
+            Math.random() * 100 + "%";
+
+
+        particles.appendChild(p);
+
+    }
+
+}
+
+
+createParticles();
+
+
+/* =====================================================
+   DATA.JS
+   اگر وجود داشته باشد، اطلاعات قبلی حفظ می‌شود
+===================================================== */
+
+function getData(){
+
+    try{
+
+        if(
+            typeof DEFAULT_DATA !== "undefined" &&
+            DEFAULT_DATA
+        ){
+
+            return DEFAULT_DATA;
+
+        }
+
+    }catch(e){}
+
+
+    return null;
+
+}
+
+
+const siteData =
+    getData();
+
+
+/* =====================================================
+   اعمال اطلاعات سایت
+===================================================== */
+
+if(siteData){
+
+    try{
+
+        if(
+            siteData.site &&
+            siteData.site.mainImage
+        ){
+
+            if(mainLogo){
+                mainLogo.src =
+                    siteData.site.mainImage;
+            }
+
+            if(menuLogo){
+                menuLogo.src =
+                    siteData.site.mainImage;
+            }
+
+        }
+
+
+        if(
+            siteData.site &&
+            siteData.site.mainTitle
+        ){
+
+            const title =
+                document.getElementById(
+                    "mainTitle"
+                );
+
+            if(title){
+                title.textContent =
+                    siteData.site.mainTitle;
+            }
+
+        }
+
+
+        if(
+            siteData.site &&
+            siteData.site.mainSubtitle
+        ){
+
+            const subtitle =
+                document.getElementById(
+                    "mainSubtitle"
+                );
+
+            if(subtitle){
+                subtitle.textContent =
+                    siteData.site.mainSubtitle;
+            }
+
+        }
+
+
+        if(
+            siteData.tutorial
+        ){
+
+            const frame =
+                document.getElementById(
+                    "tutorialFrame"
+                );
+
+            const video =
+                document.getElementById(
+                    "tutorialVideo"
+                );
+
+
+            if(
+                frame &&
+                siteData.tutorial.iframe
+            ){
+
+                frame.src =
+                    siteData.tutorial.iframe;
+
+            }
+
+
+            if(
+                video &&
+                siteData.tutorial.video
+            ){
+
+                video.src =
+                    siteData.tutorial.video;
+
+            }
+
+        }
+
+    }catch(error){
+
+        console.warn(
+            "خطا در اعمال اطلاعات سایت:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOCAL STORAGE DATA
+===================================================== */
+
+try{
+
+    const saved =
+        localStorage.getItem(
+            "counter_mod_site_data"
+        );
+
+
+    if(saved){
+
+        const parsed =
+            JSON.parse(saved);
+
+
+        if(
+            parsed.site &&
+            parsed.site.mainImage
+        ){
+
+            mainLogo.src =
+                parsed.site.mainImage;
+
+            menuLogo.src =
+                parsed.site.mainImage;
+
+        }
+
+    }
+
+}catch(e){}
+
+
+/* =====================================================
+   پایان
+===================================================== */
+
+})();
+
+</script>
 
 </body>
-
-</html>
+    </html>
