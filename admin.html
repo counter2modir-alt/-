@@ -3,491 +3,1237 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta name="theme-color" content="#03080f">
+
+<title>مدیریت کانتر مود</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    min-height:100vh;
+    color:#fff;
+    font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(25,130,190,.15),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 85%,
+            rgba(0,100,170,.12),
+            transparent 35%
+        ),
+        #03080f;
+
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+#particles{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+}
+
+.particle{
+    position:absolute;
+    bottom:-30px;
+
+    border-radius:50%;
 
-    <meta
-        name="viewport"
-        content="width=device-width,initial-scale=1,viewport-fit=cover"
-    >
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(255,255,255,.9),
+            rgba(55,180,240,.55) 35%,
+            rgba(30,130,200,.08) 70%,
+            transparent
+        );
 
-    <meta
-        name="theme-color"
-        content="#03080f"
-    >
+    box-shadow:
+        0 0 18px rgba(35,160,225,.18);
 
-    <title>مدیریت کانتر مود</title>
+    animation:
+        floatParticle linear infinite;
+}
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+@keyframes floatParticle{
 
-    <style>
+    0%{
+        transform:
+            translate3d(0,30px,0)
+            scale(.8);
 
-        body{
-            min-height:100vh;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:20px;
-        }
+        opacity:0;
+    }
 
-        .admin-login{
-            position:relative;
+    10%{
+        opacity:.65;
+    }
 
-            width:min(460px,100%);
+    50%{
+        transform:
+            translate3d(35px,-50vh,0)
+            scale(1);
+    }
 
-            padding:38px 28px;
+    90%{
+        opacity:.35;
+    }
 
-            border-radius:30px;
+    100%{
+        transform:
+            translate3d(-30px,-110vh,0)
+            scale(.75);
 
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,.11),
-                    rgba(255,255,255,.035)
-                );
+        opacity:0;
+    }
 
-            border:
-                1px solid rgba(255,255,255,.14);
+}
 
-            box-shadow:
-                0 35px 100px rgba(0,0,0,.5),
-                inset 0 1px rgba(255,255,255,.13);
+/* =========================
+   LOGIN
+========================= */
 
-            backdrop-filter:
-                blur(30px)
-                saturate(150%);
+.admin-login{
 
-            -webkit-backdrop-filter:
-                blur(30px)
-                saturate(150%);
+    position:relative;
+    z-index:2;
 
-            overflow:hidden;
-        }
+    width:min(460px,calc(100% - 30px));
 
-        .admin-login::before{
-            content:"";
+    margin:
+        40px auto;
 
-            position:absolute;
+    padding:
+        38px 28px;
 
-            width:300px;
-            height:300px;
+    border-radius:30px;
 
-            top:-170px;
-            left:-120px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.11),
+            rgba(255,255,255,.035)
+        );
 
-            border-radius:50%;
+    border:
+        1px solid rgba(255,255,255,.14);
 
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(55,175,240,.16),
-                    transparent 68%
-                );
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.5),
+        inset 0 1px rgba(255,255,255,.13);
 
-            pointer-events:none;
-        }
+    backdrop-filter:
+        blur(30px)
+        saturate(150%);
 
-        .admin-logo{
-            position:relative;
+    -webkit-backdrop-filter:
+        blur(30px)
+        saturate(150%);
 
-            width:105px;
-            height:105px;
+    overflow:hidden;
+}
 
-            display:block;
+.admin-login::before{
 
-            margin:0 auto 20px;
+    content:"";
 
-            object-fit:cover;
+    position:absolute;
 
-            border-radius:50%;
+    width:300px;
+    height:300px;
 
-            padding:5px;
+    top:-170px;
+    left:-120px;
 
-            border:
-                2px solid rgba(80,195,255,.7);
+    border-radius:50%;
 
-            box-shadow:
-                0 0 40px rgba(35,155,235,.25);
-        }
+    background:
+        radial-gradient(
+            circle,
+            rgba(55,175,240,.16),
+            transparent 68%
+        );
 
-        .admin-title{
-            text-align:center;
+    pointer-events:none;
+}
 
-            font-size:26px;
+.admin-logo{
 
-            font-weight:800;
+    position:relative;
+    z-index:1;
 
-            margin-bottom:8px;
-        }
+    width:105px;
+    height:105px;
 
-        .admin-description{
-            text-align:center;
+    display:block;
 
-            color:rgba(205,225,240,.62);
+    margin:
+        0 auto 20px;
 
-            font-size:13px;
+    object-fit:cover;
 
-            line-height:2;
+    border-radius:50%;
 
-            margin-bottom:25px;
-        }
+    padding:5px;
 
-        .password-box{
-            position:relative;
+    border:
+        2px solid rgba(80,195,255,.7);
 
-            margin-bottom:14px;
-        }
+    box-shadow:
+        0 0 40px rgba(35,155,235,.25);
+}
 
-        .password-box input{
-            width:100%;
+.admin-title{
 
-            height:56px;
+    position:relative;
+    z-index:1;
 
-            padding:
-                0 17px;
+    text-align:center;
 
-            border-radius:16px;
+    font-size:26px;
 
-            outline:none;
+    font-weight:800;
 
-            color:white;
+    margin-bottom:8px;
+}
 
-            background:
-                rgba(0,0,0,.22);
+.admin-description{
 
-            border:
-                1px solid rgba(255,255,255,.12);
+    position:relative;
+    z-index:1;
 
-            box-shadow:
-                inset 0 1px rgba(255,255,255,.05);
+    text-align:center;
 
-            transition:.25s;
-        }
+    color:
+        rgba(205,225,240,.62);
 
-        .password-box input:focus{
-            border-color:
-                rgba(75,190,250,.5);
+    font-size:13px;
 
-            box-shadow:
-                0 0 0 4px rgba(45,165,230,.07);
-        }
+    line-height:2;
 
-        .login-button{
-            width:100%;
+    margin-bottom:25px;
+}
 
-            height:56px;
+.password-box{
 
-            border-radius:16px;
+    position:relative;
+    z-index:1;
 
-            color:white;
+    margin-bottom:14px;
+}
 
-            font-size:15px;
+.password-box input{
 
-            font-weight:700;
+    width:100%;
 
-            cursor:pointer;
+    height:56px;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(39,154,225,.5),
-                    rgba(20,87,135,.5)
-                );
+    padding:
+        0 17px;
 
-            border:
-                1px solid rgba(105,205,255,.3);
+    border-radius:16px;
 
-            box-shadow:
-                0 12px 30px rgba(0,0,0,.25),
-                inset 0 1px rgba(255,255,255,.13);
+    outline:none;
 
-            transition:.25s;
-        }
+    color:white;
 
-        .login-button:hover{
-            transform:translateY(-2px);
+    font-size:15px;
 
-            box-shadow:
-                0 16px 38px rgba(0,0,0,.35),
-                0 0 25px rgba(40,160,235,.12);
-        }
+    background:
+        rgba(0,0,0,.22);
 
-        .login-button:active{
-            transform:scale(.98);
-        }
+    border:
+        1px solid rgba(255,255,255,.12);
 
-        .login-error{
-            min-height:22px;
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.05);
 
-            text-align:center;
+    transition:.25s;
+}
 
-            color:#ff8f9b;
+.password-box input::placeholder{
+    color:rgba(220,235,245,.4);
+}
 
-            font-size:13px;
+.password-box input:focus{
 
-            margin-top:13px;
-        }
+    border-color:
+        rgba(75,190,250,.65);
 
-        .back-site{
-            display:block;
+    box-shadow:
+        0 0 0 4px
+        rgba(45,165,230,.07);
+}
 
-            text-align:center;
+.login-button{
 
-            margin-top:22px;
+    position:relative;
+    z-index:1;
 
-            color:rgba(195,220,238,.6);
+    width:100%;
 
-            font-size:13px;
-        }
+    height:56px;
 
-        .back-site:hover{
-            color:#fff;
-        }
+    border-radius:16px;
 
-        @media(max-width:450px){
+    color:white;
 
-            .admin-login{
-                padding:30px 18px;
-                border-radius:25px;
-            }
+    font-size:15px;
 
-            .admin-logo{
-                width:90px;
-                height:90px;
-            }
+    font-weight:700;
 
-            .admin-title{
-                font-size:23px;
-            }
+    cursor:pointer;
 
-        }
+    background:
+        linear-gradient(
+            135deg,
+            rgba(39,154,225,.5),
+            rgba(20,87,135,.5)
+        );
 
-    </style>
+    border:
+        1px solid rgba(105,205,255,.3);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.25),
+        inset 0 1px rgba(255,255,255,.13);
+
+    transition:.25s;
+}
+
+.login-button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 16px 38px rgba(0,0,0,.35),
+        0 0 25px rgba(40,160,235,.12);
+}
+
+.login-button:active{
+    transform:scale(.98);
+}
+
+.login-error{
+
+    position:relative;
+    z-index:1;
+
+    min-height:22px;
+
+    text-align:center;
+
+    color:#ff8f9b;
+
+    font-size:13px;
+
+    margin-top:13px;
+}
+
+.back-site{
+
+    position:relative;
+    z-index:1;
+
+    display:block;
+
+    text-align:center;
+
+    margin-top:22px;
+
+    color:
+        rgba(195,220,238,.6);
+
+    font-size:13px;
+
+    text-decoration:none;
+}
+
+.back-site:hover{
+    color:#fff;
+}
+
+/* =========================
+   PANEL
+========================= */
+
+.admin-panel{
+
+    position:relative;
+    z-index:2;
+
+    width:
+        min(1100px,calc(100% - 28px));
+
+    margin:
+        20px auto;
+
+    padding:24px;
+
+    display:none;
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.10),
+            rgba(255,255,255,.035)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.13);
+
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.45),
+        inset 0 1px rgba(255,255,255,.1);
+
+    backdrop-filter:
+        blur(28px)
+        saturate(150%);
+
+    -webkit-backdrop-filter:
+        blur(28px)
+        saturate(150%);
+}
+
+.panel-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:25px;
+
+    padding-bottom:20px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+}
+
+.panel-title{
+
+    font-size:25px;
+
+    font-weight:800;
+}
+
+.panel-subtitle{
+
+    margin-top:6px;
+
+    color:
+        rgba(210,230,245,.55);
+
+    font-size:12px;
+}
+
+.logout-button{
+
+    border:1px solid
+        rgba(255,255,255,.12);
+
+    background:
+        rgba(255,255,255,.06);
+
+    color:white;
+
+    border-radius:13px;
+
+    padding:
+        11px 17px;
+
+    cursor:pointer;
+}
+
+.logout-button:hover{
+    background:
+        rgba(255,255,255,.11);
+}
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
+
+    margin-bottom:25px;
+}
+
+.stat{
+
+    padding:20px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid rgba(255,255,255,.09);
+}
+
+.stat-number{
+
+    font-size:27px;
+
+    font-weight:800;
+
+    margin-bottom:7px;
+}
+
+.stat-title{
+
+    color:
+        rgba(215,235,245,.55);
+
+    font-size:12px;
+}
+
+.panel-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:15px;
+}
+
+.panel-card{
+
+    padding:22px;
+
+    min-height:140px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+}
+
+.panel-card h3{
+
+    font-size:17px;
+
+    margin-bottom:10px;
+}
+
+.panel-card p{
+
+    color:
+        rgba(215,235,245,.55);
+
+    font-size:12px;
+
+    line-height:2;
+}
+
+.notice{
+
+    margin-top:20px;
+
+    padding:15px;
+
+    border-radius:16px;
+
+    background:
+        rgba(35,150,210,.08);
+
+    border:
+        1px solid rgba(70,180,235,.14);
+
+    color:
+        rgba(220,240,250,.7);
+
+    font-size:12px;
+
+    line-height:2;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .admin-login{
+
+        width:
+            calc(100% - 24px);
+
+        margin:
+            20px auto;
+
+        padding:
+            30px 18px;
+
+        border-radius:25px;
+    }
+
+    .admin-logo{
+
+        width:90px;
+        height:90px;
+    }
+
+    .admin-title{
+        font-size:23px;
+    }
+
+    .admin-panel{
+
+        width:
+            calc(100% - 18px);
+
+        padding:17px;
+
+        margin:
+            9px auto;
+
+        border-radius:22px;
+    }
+
+    .panel-header{
+        align-items:flex-start;
+    }
+
+    .panel-title{
+        font-size:20px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .panel-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+/* =========================
+   HIDDEN
+========================= */
+
+.hidden{
+    display:none !important;
+}
+
+</style>
 
 </head>
 
-
 <body>
 
-    <div id="particles"></div>
+<div id="particles"></div>
 
 
-    <div class="admin-login">
+<!-- =========================
+     LOGIN
+========================= -->
 
-        <img
-            id="adminLogo"
-            class="admin-logo"
-            alt="کانتر مود"
+<div
+    id="loginBox"
+    class="admin-login"
+>
+
+    <img
+        id="adminLogo"
+        class="admin-logo"
+        src="https://cdn.imgurl.ir/uploads/x012403_InShot_20260625_163753784.png"
+        alt="کانتر مود"
+    >
+
+    <h1 class="admin-title">
+        پنل مدیریت
+    </h1>
+
+    <p class="admin-description">
+
+        مدیریت حرفه‌ای سایت کانتر مود
+
+        <br>
+
+        برای ورود رمز مدیریت را وارد کنید.
+
+    </p>
+
+    <div class="password-box">
+
+        <input
+            id="adminPassword"
+            type="password"
+            placeholder="رمز مدیریت"
+            autocomplete="current-password"
+            inputmode="text"
         >
 
+    </div>
 
-        <h1 class="admin-title">
-            پنل مدیریت
-        </h1>
+    <button
+        id="loginButton"
+        class="login-button"
+        type="button"
+    >
+        ورود به پنل مدیریت
+    </button>
+
+    <div
+        id="loginError"
+        class="login-error"
+    ></div>
+
+    <a
+        class="back-site"
+        href="index.html"
+    >
+        ← بازگشت به سایت
+    </a>
+
+</div>
 
 
-        <p class="admin-description">
-            مدیریت حرفه‌ای سایت کانتر مود
-            <br>
-            برای ورود رمز مدیریت را وارد کنید.
-        </p>
+<!-- =========================
+     ADMIN PANEL
+========================= -->
 
+<div
+    id="adminPanel"
+    class="admin-panel"
+>
 
-        <div class="password-box">
+    <div class="panel-header">
 
-            <input
-                id="adminPassword"
-                type="password"
-                placeholder="رمز مدیریت"
-                autocomplete="current-password"
-            >
+        <div>
+
+            <div class="panel-title">
+                پنل مدیریت کانتر مود
+            </div>
+
+            <div class="panel-subtitle">
+                مدیریت سایت و محتوای کانتر مود
+            </div>
 
         </div>
 
-
         <button
-            id="loginButton"
-            class="login-button"
+            id="logoutButton"
+            class="logout-button"
             type="button"
         >
-            ورود به پنل مدیریت
+            خروج
         </button>
-
-
-        <div
-            id="loginError"
-            class="login-error"
-        ></div>
-
-
-        <a
-            class="back-site"
-            href="index.html"
-        >
-            ← بازگشت به سایت
-        </a>
 
     </div>
 
 
-    <script src="data.js"></script>
+    <div class="stats">
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="visitorCount"
+            >
+                0
+            </div>
+
+            <div class="stat-title">
+                بازدیدهای ثبت‌شده در این مرورگر
+            </div>
+
+        </div>
 
 
-    <script>
+        <div class="stat">
 
-        /* =========================================
-           ADMIN LOGIN
-        ========================================= */
+            <div
+                class="stat-number"
+                id="modCount"
+            >
+                0
+            </div>
 
-        const ADMIN_PASSWORD =
-            "Abolfazl1389";
+            <div class="stat-title">
+                مودها
+            </div>
 
-
-        const passwordInput =
-            document.getElementById(
-                "adminPassword"
-            );
-
-
-        const loginButton =
-            document.getElementById(
-                "loginButton"
-            );
+        </div>
 
 
-        const errorBox =
-            document.getElementById(
-                "loginError"
-            );
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="appCount"
+            >
+                0
+            </div>
+
+            <div class="stat-title">
+                برنامه‌ها
+            </div>
+
+        </div>
+
+    </div>
 
 
-        const adminLogo =
-            document.getElementById(
-                "adminLogo"
-            );
+    <div class="panel-grid">
+
+        <div class="panel-card">
+
+            <h3>
+                مدیریت مودها
+            </h3>
+
+            <p>
+                در این بخش می‌توان مودهای سایت،
+                عنوان، تصویر و لینک آن‌ها را مدیریت کرد.
+            </p>
+
+        </div>
 
 
-        if(
-            typeof DEFAULT_DATA !== "undefined" &&
-            DEFAULT_DATA.site
-        ){
+        <div class="panel-card">
 
-            adminLogo.src =
-                DEFAULT_DATA.site.mainImage;
+            <h3>
+                مدیریت برنامه‌ها
+            </h3>
+
+            <p>
+                افزودن، ویرایش و حذف برنامه‌های
+                موجود در بخش برنامه‌های سایت.
+            </p>
+
+        </div>
+
+
+        <div class="panel-card">
+
+            <h3>
+                تنظیمات سایت
+            </h3>
+
+            <p>
+                مدیریت عنوان سایت، توضیحات،
+                لینک‌های ارتباطی و تصاویر.
+            </p>
+
+        </div>
+
+
+        <div class="panel-card">
+
+            <h3>
+                آمار سایت
+            </h3>
+
+            <p>
+                آمار ذخیره‌شده در این مرورگر
+                از طریق حافظه محلی سایت.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="notice">
+
+        توجه:
+        چون سایت روی GitHub Pages و به‌صورت استاتیک اجرا می‌شود،
+        اطلاعاتی که بدون سرور ذخیره شوند فقط روی همین مرورگر و دستگاه
+        قابل مشاهده هستند. برای آمار واقعی تمام بازدیدکنندگان و مدیریت
+        آنلاین مشترک، بعداً باید یک بک‌اند و پایگاه‌داده اضافه شود.
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ==================================================
+   تنظیمات ورود
+================================================== */
+
+const ADMIN_PASSWORD = "Abolfazl1389";
+
+const loginBox =
+    document.getElementById("loginBox");
+
+const adminPanel =
+    document.getElementById("adminPanel");
+
+const passwordInput =
+    document.getElementById("adminPassword");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const loginError =
+    document.getElementById("loginError");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+
+/* ==================================================
+   ورود
+================================================== */
+
+function login(){
+
+    const password =
+        String(passwordInput.value || "").trim();
+
+    loginError.textContent = "";
+
+    if(password === ADMIN_PASSWORD){
+
+        sessionStorage.setItem(
+            "counter_mod_admin",
+            "true"
+        );
+
+        showPanel();
+
+        return;
+    }
+
+    loginError.textContent =
+        "رمز مدیریت اشتباه است.";
+
+    passwordInput.value = "";
+
+    setTimeout(function(){
+
+        passwordInput.focus();
+
+    },50);
+
+}
+
+
+/* ==================================================
+   نمایش پنل
+================================================== */
+
+function showPanel(){
+
+    loginBox.style.display = "none";
+
+    adminPanel.style.display = "block";
+
+    loadStats();
+
+}
+
+
+/* ==================================================
+   بررسی نشست
+================================================== */
+
+function checkLogin(){
+
+    const loggedIn =
+        sessionStorage.getItem(
+            "counter_mod_admin"
+        ) === "true";
+
+    if(loggedIn){
+
+        showPanel();
+
+    }else{
+
+        loginBox.style.display = "block";
+
+        adminPanel.style.display = "none";
+
+    }
+
+}
+
+
+/* ==================================================
+   خروج
+================================================== */
+
+function logout(){
+
+    sessionStorage.removeItem(
+        "counter_mod_admin"
+    );
+
+    adminPanel.style.display = "none";
+
+    loginBox.style.display = "block";
+
+    passwordInput.value = "";
+
+    loginError.textContent = "";
+
+    passwordInput.focus();
+
+}
+
+
+/* ==================================================
+   دکمه‌ها
+================================================== */
+
+loginButton.addEventListener(
+    "click",
+    login
+);
+
+logoutButton.addEventListener(
+    "click",
+    logout
+);
+
+
+passwordInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            event.preventDefault();
+
+            login();
 
         }
 
+    }
+);
 
-        function login(){
 
-            const password =
-                passwordInput.value;
+/* ==================================================
+   آمار محلی
+================================================== */
 
+function getNumber(key){
+
+    const value =
+        localStorage.getItem(key);
+
+    const number =
+        parseInt(value || "0",10);
+
+    return Number.isFinite(number)
+        ? number
+        : 0;
+
+}
+
+
+function loadStats(){
+
+    const visitorCount =
+        getNumber(
+            "counter_mod_visitors"
+        );
+
+    document.getElementById(
+        "visitorCount"
+    ).textContent =
+        visitorCount;
+
+
+    let modCount = 0;
+
+    let appCount = 0;
+
+
+    try{
+
+        const raw =
+            localStorage.getItem(
+                "counter_mod_site_data"
+            );
+
+        if(raw){
+
+            const data =
+                JSON.parse(raw);
 
             if(
-                password ===
-                ADMIN_PASSWORD
+                data &&
+                Array.isArray(data.downloads)
             ){
 
-                sessionStorage.setItem(
-                    "counter_mod_admin",
-                    "true"
-                );
+                modCount =
+                    data.downloads.length;
 
+            }
 
-                window.location.href =
-                    "admin.html?panel=1";
+            if(
+                data &&
+                Array.isArray(data.apps)
+            ){
 
-            }else{
-
-                errorBox.textContent =
-                    "رمز مدیریت اشتباه است.";
-
-                passwordInput.value = "";
-
-                passwordInput.focus();
+                appCount =
+                    data.apps.length;
 
             }
 
         }
 
+    }catch(error){
 
-        loginButton.addEventListener(
-            "click",
-            login
+        console.warn(
+            "خطا در خواندن اطلاعات سایت:",
+            error
         );
 
+    }
 
-        passwordInput.addEventListener(
-            "keydown",
-            function(event){
 
-                if(
-                    event.key ===
-                    "Enter"
-                ){
+    document.getElementById(
+        "modCount"
+    ).textContent =
+        modCount;
 
-                    login();
 
-                }
+    document.getElementById(
+        "appCount"
+    ).textContent =
+        appCount;
 
-            }
+}
+
+
+/* ==================================================
+   بازدید محلی
+================================================== */
+
+(function(){
+
+    const visitKey =
+        "counter_mod_visitors";
+
+    const alreadyCounted =
+        sessionStorage.getItem(
+            "counter_mod_visit_counted"
         );
 
+    if(!alreadyCounted){
 
-        /* =========================================
-           PARTICLES
-        ========================================= */
+        const oldCount =
+            getNumber(visitKey);
 
-        const particles =
-            document.getElementById(
-                "particles"
-            );
+        localStorage.setItem(
+            visitKey,
+            String(oldCount + 1)
+        );
+
+        sessionStorage.setItem(
+            "counter_mod_visit_counted",
+            "true"
+        );
+
+    }
+
+})();
 
 
-        for(
-            let i = 0;
-            i < 22;
-            i++
-        ){
+/* ==================================================
+   ذرات متحرک
+================================================== */
 
-            const p =
-                document.createElement(
-                    "span"
-                );
+const particles =
+    document.getElementById(
+        "particles"
+    );
 
-            p.className =
-                "particle";
 
-            const size =
-                3 +
-                Math.random() * 6;
+for(
+    let i = 0;
+    i < 25;
+    i++
+){
 
-            p.style.width =
-                size + "px";
+    const p =
+        document.createElement(
+            "span"
+        );
 
-            p.style.height =
-                size + "px";
+    p.className =
+        "particle";
 
-            p.style.left =
-                Math.random() * 100 + "%";
+    const size =
+        3 + Math.random() * 7;
 
-            p.style.animationDuration =
-                (10 + Math.random() * 18)
-                + "s";
+    p.style.width =
+        size + "px";
 
-            p.style.animationDelay =
-                (-Math.random() * 20)
-                + "s";
+    p.style.height =
+        size + "px";
 
-            particles.appendChild(p);
+    p.style.left =
+        Math.random() * 100 + "%";
 
-        }
+    p.style.animationDuration =
+        (10 + Math.random() * 18) + "s";
 
-    </script>
+    p.style.animationDelay =
+        (-Math.random() * 20) + "s";
+
+    particles.appendChild(p);
+
+}
+
+
+/* ==================================================
+   شروع
+================================================== */
+
+checkLogin();
+
+</script>
 
 </body>
-
 </html>
