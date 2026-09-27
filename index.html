@@ -29,10 +29,6 @@ body{
     overflow-x:hidden;
 }
 
-/* =========================
-   لایه‌های نوری پس‌زمینه
-========================= */
-
 body::before{
     content:"";
     position:fixed;
@@ -49,10 +45,6 @@ body::before{
     from{transform:translate3d(-2%,-1%,0) scale(1)}
     to{transform:translate3d(2%,1%,0) scale(1.05)}
 }
-
-/* =========================
-   توپک‌های متحرک
-========================= */
 
 .bg-particles{
     position:fixed;
@@ -103,35 +95,24 @@ body::before{
         transform:translate3d(0,110vh,0) scale(.55) rotate(0deg);
         opacity:0;
     }
-
-    8%{
-        opacity:.85;
-    }
-
+    8%{opacity:.85}
     25%{
         transform:translate3d(-55px,55vh,0) scale(.82) rotate(90deg);
         opacity:.9;
     }
-
     50%{
         transform:translate3d(75px,-5vh,0) scale(1.08) rotate(180deg);
         opacity:.95;
     }
-
     75%{
         transform:translate3d(-65px,-65vh,0) scale(.86) rotate(270deg);
         opacity:.8;
     }
-
     100%{
         transform:translate3d(95px,-125vh,0) scale(.5) rotate(360deg);
         opacity:0;
     }
 }
-
-/* =========================
-   منو
-========================= */
 
 .menu-button{
     position:fixed;
@@ -353,10 +334,6 @@ body::before{
     color:rgba(210,235,255,.46);
 }
 
-/* =========================
-   کانتینر
-========================= */
-
 .container{
     position:relative;
     width:100%;
@@ -376,8 +353,6 @@ body::before{
     backdrop-filter:blur(22px);
     -webkit-backdrop-filter:blur(22px);
 }
-
-/* نوار بالا */
 
 .topbar{
     width:100%;
@@ -425,8 +400,6 @@ body::before{
     height:27px;
 }
 
-/* عنوان */
-
 .page-title{
     text-align:center;
     margin:12px 0 24px;
@@ -437,9 +410,6 @@ body::before{
         0 5px 25px rgba(120,200,255,.14);
 }
 
-/* تصاویر */
-
-/* فقط لوگوی اصلی صفحه اول کوچک شده */
 .main-image{
     display:block;
     width:min(190px,48vw);
@@ -454,7 +424,6 @@ body::before{
     transition:.3s;
 }
 
-/* تصاویر پست‌ها بدون تغییر */
 .post-image{
     display:block;
     width:100%;
@@ -473,8 +442,6 @@ body::before{
     transform:translateY(-3px);
     border-color:rgba(120,200,255,.25);
 }
-
-/* دکمه‌ها */
 
 .btn-box{
     display:flex;
@@ -557,8 +524,6 @@ body::before{
     border-color:rgba(105,175,225,.22);
 }
 
-/* دانلود */
-
 .download-item{
     max-width:900px;
     margin:30px auto 42px;
@@ -580,10 +545,6 @@ video{
     border-radius:24px;
     background:#03070c;
 }
-
-/* =========================
-   کارت برنامه‌ها
-========================= */
 
 .apps-list{
     width:100%;
@@ -682,10 +643,6 @@ video{
 }
 
 .app-download:active{transform:scale(.94)}
-
-/* =========================
-   ارتباط با ما
-========================= */
 
 .contact-page{
     max-width:850px;
@@ -822,8 +779,6 @@ video{
     font-size:1.1rem;
 }
 
-/* بازگشت */
-
 #backBtn{
     position:fixed;
     bottom:18px;
@@ -862,7 +817,6 @@ video{
         opacity:0;
         transform:translateY(12px);
     }
-
     to{
         opacity:1;
         transform:translateY(0);
@@ -898,7 +852,6 @@ video{
         border-radius:17px;
     }
 
-    /* لوگوی اصلی در موبایل کمی کوچک‌تر */
     .main-image{
         width:min(165px,45vw);
         max-width:165px;
@@ -974,32 +927,20 @@ video{
 <body>
 
 <div class="bg-particles" aria-hidden="true">
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span>
 </div>
 
 <button class="menu-button" id="menuButton" aria-label="منو" aria-expanded="false" type="button">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
 </button>
 
 <div class="menu-overlay" id="menuOverlay"></div>
@@ -1028,7 +969,6 @@ video{
                 fill="none" stroke="white" stroke-width="5"/>
             </svg>
         </span>
-
         <span class="menu-text">
             <strong>صفحه اصلی</strong>
             <small>بازگشت به صفحه اول</small>
@@ -1038,17 +978,12 @@ video{
     <a href="#page5" class="menu-link menu-page-link">
         <span class="menu-icon">
             <svg viewBox="0 0 64 64">
-                <rect x="8" y="8" width="19" height="19" rx="4"
-                fill="none" stroke="white" stroke-width="5"/>
-                <rect x="37" y="8" width="19" height="19" rx="4"
-                fill="none" stroke="white" stroke-width="5"/>
-                <rect x="8" y="37" width="19" height="19" rx="4"
-                fill="none" stroke="white" stroke-width="5"/>
-                <rect x="37" y="37" width="19" height="19" rx="4"
-                fill="none" stroke="white" stroke-width="5"/>
+                <rect x="8" y="8" width="19" height="19" rx="4" fill="none" stroke="white" stroke-width="5"/>
+                <rect x="37" y="8" width="19" height="19" rx="4" fill="none" stroke="white" stroke-width="5"/>
+                <rect x="8" y="37" width="19" height="19" rx="4" fill="none" stroke="white" stroke-width="5"/>
+                <rect x="37" y="37" width="19" height="19" rx="4" fill="none" stroke="white" stroke-width="5"/>
             </svg>
         </span>
-
         <span class="menu-text">
             <strong>برنامه‌ها</strong>
             <small>برنامه‌های کاربردی</small>
@@ -1059,14 +994,11 @@ video{
         <span class="menu-icon">
             <svg viewBox="0 0 64 64">
                 <path d="M10 34a22 22 0 0 1 44 0v12a6 6 0 0 1-6 6h-7V37h13"
-                fill="none" stroke="white" stroke-width="5"
-                stroke-linecap="round"/>
+                fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
                 <path d="M10 37H7a5 5 0 0 0-5 5v4a6 6 0 0 0 6 6h7V37"
-                fill="none" stroke="white" stroke-width="5"
-                stroke-linecap="round"/>
+                fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
             </svg>
         </span>
-
         <span class="menu-text">
             <strong>ارتباط با ما</strong>
             <small>کانال‌ها و پشتیبانی</small>
@@ -1076,16 +1008,7 @@ video{
     <div class="menu-line"></div>
 
     <a href="https://rubika.ir/Counter2Mod" target="_blank" rel="noopener" class="menu-link">
-        <span class="menu-icon">
-            <svg viewBox="0 0 64 64">
-                <rect x="8" y="8" width="48" height="48" rx="15"
-                fill="none" stroke="white" stroke-width="4.5"/>
-                <path d="M19 20h26M19 32h20M19 44h14"
-                fill="none" stroke="white" stroke-width="5"
-                stroke-linecap="round"/>
-            </svg>
-        </span>
-
+        <span class="menu-icon">📢</span>
         <span class="menu-text">
             <strong>کانال روبیکا</strong>
             <small>کانال اصلی کانتر مود</small>
@@ -1093,17 +1016,7 @@ video{
     </a>
 
     <a href="https://t.me/Counter2Mod" target="_blank" rel="noopener" class="menu-link">
-        <span class="menu-icon">
-            <svg viewBox="0 0 64 64">
-                <path d="M56 10L8 29l19 7 7 19 22-45z"
-                fill="none" stroke="white" stroke-width="5"
-                stroke-linejoin="round"/>
-                <path d="M27 36l12-10"
-                fill="none" stroke="white" stroke-width="5"
-                stroke-linecap="round"/>
-            </svg>
-        </span>
-
+        <span class="menu-icon">✈️</span>
         <span class="menu-text">
             <strong>کانال تلگرام</strong>
             <small>عضویت در تلگرام</small>
@@ -1111,17 +1024,7 @@ video{
     </a>
 
     <a href="https://ble.ir/Countermod" target="_blank" rel="noopener" class="menu-link">
-        <span class="menu-icon">
-            <svg viewBox="0 0 64 64">
-                <path d="M12 11h40a7 7 0 0 1 7 7v24a7 7 0 0 1-7 7H33L20 58v-9h-8a7 7 0 0 1-7-7V18a7 7 0 0 1 7-7z"
-                fill="none" stroke="white" stroke-width="4.5"
-                stroke-linejoin="round"/>
-                <path d="M20 25h24M20 34h18"
-                fill="none" stroke="white" stroke-width="5"
-                stroke-linecap="round"/>
-            </svg>
-        </span>
-
+        <span class="menu-icon">💬</span>
         <span class="menu-text">
             <strong>کانال بله</strong>
             <small>صفحه ما در بله</small>
@@ -1129,14 +1032,7 @@ video{
     </a>
 
     <a href="https://www.aparat.com/Abolfazl_Hakerr/shorts" target="_blank" rel="noopener" class="menu-link">
-        <span class="menu-icon">
-            <svg viewBox="0 0 64 64">
-                <rect x="7" y="12" width="50" height="40" rx="10"
-                fill="none" stroke="white" stroke-width="4.5"/>
-                <path d="M27 22l17 10-17 10z" fill="white"/>
-            </svg>
-        </span>
-
+        <span class="menu-icon">▶</span>
         <span class="menu-text">
             <strong>کانال آپارات</strong>
             <small>ویدیوها و آموزش‌ها</small>
@@ -1145,19 +1041,7 @@ video{
 
     <a href="https://rubika.ir/joing/BAFCGFBCE0SVOLBSWKUNPCLEJNAMITSH"
        target="_blank" rel="noopener" class="menu-link">
-
-        <span class="menu-icon">
-            <svg viewBox="0 0 64 64">
-                <circle cx="23" cy="23" r="9"
-                fill="none" stroke="white" stroke-width="5"/>
-                <circle cx="45" cy="26" r="7"
-                fill="none" stroke="white" stroke-width="5"/>
-                <path d="M8 52c1-10 8-15 16-15s15 5 16 15M39 38c8 0 14 5 16 14"
-                fill="none" stroke="white" stroke-width="5"
-                stroke-linecap="round"/>
-            </svg>
-        </span>
-
+        <span class="menu-icon">👥</span>
         <span class="menu-text">
             <strong>گپ روبیکا</strong>
             <small>ورود به گپ</small>
@@ -1166,21 +1050,7 @@ video{
 
     <a href="https://rubika.ir/Abolfazl_Kazemi_SFG"
        target="_blank" rel="noopener" class="menu-link">
-
-        <span class="menu-icon">
-            <svg viewBox="0 0 64 64">
-                <path d="M10 34a22 22 0 0 1 44 0v12a6 6 0 0 1-6 6h-7V37h13"
-                fill="none" stroke="white" stroke-width="5"
-                stroke-linecap="round"/>
-                <path d="M10 37H7a5 5 0 0 0-5 5v4a6 6 0 0 0 6 6h7V37"
-                fill="none" stroke="white" stroke-width="5"
-                stroke-linecap="round"/>
-                <path d="M41 52h6"
-                fill="none" stroke="white" stroke-width="5"
-                stroke-linecap="round"/>
-            </svg>
-        </span>
-
+        <span class="menu-icon">🎧</span>
         <span class="menu-text">
             <strong>پشتیبانی</strong>
             <small>ارتباط با سازنده</small>
@@ -1194,14 +1064,10 @@ video{
     <div class="topbar">
         <a href="#page5" class="apps-top-button menu-page-link">
             <svg class="apps-icon" viewBox="0 0 64 64">
-                <rect x="8" y="8" width="19" height="19" rx="4"
-                fill="none" stroke="white" stroke-width="5"/>
-                <rect x="37" y="8" width="19" height="19" rx="4"
-                fill="none" stroke="white" stroke-width="5"/>
-                <rect x="8" y="37" width="19" height="19" rx="4"
-                fill="none" stroke="white" stroke-width="5"/>
-                <rect x="37" y="37" width="19" height="19" rx="4"
-                fill="none" stroke="white" stroke-width="5"/>
+                <rect x="8" y="8" width="19" height="19" rx="4" fill="none" stroke="white" stroke-width="5"/>
+                <rect x="37" y="8" width="19" height="19" rx="4" fill="none" stroke="white" stroke-width="5"/>
+                <rect x="8" y="37" width="19" height="19" rx="4" fill="none" stroke="white" stroke-width="5"/>
+                <rect x="37" y="37" width="19" height="19" rx="4" fill="none" stroke="white" stroke-width="5"/>
             </svg>
             <span>برنامه‌ها</span>
         </a>
@@ -1220,8 +1086,7 @@ video{
 
         <div class="btn-box">
             <a href="https://rubika.ir/Counter2Mod"
-               target="_blank"
-               rel="noopener"
+               target="_blank" rel="noopener"
                class="glass-btn primary">
                 ورود به کانال روبیکا
             </a>
@@ -1241,16 +1106,14 @@ video{
 
         <div class="btn-box">
             <a href="https://holobot.ir/s/html/هوش مصنوعی آفلاین.html"
-               target="_blank"
-               rel="noopener"
+               target="_blank" rel="noopener"
                class="glass-btn">
                 هوش مصنوعی آفلاین
             </a>
         </div>
 
         <div class="btn-box">
-            <a href="#page2"
-               class="glass-btn danger menu-page-link">
+            <a href="#page2" class="glass-btn danger menu-page-link">
                 ارتباط با ما
             </a>
         </div>
@@ -1261,9 +1124,7 @@ video{
 
         <div class="contact-page">
 
-            <div class="page-title">
-                ارتباط با ما
-            </div>
+            <div class="page-title">ارتباط با ما</div>
 
             <div class="contact-intro">
                 برای دریافت آخرین مودها، آموزش‌ها، برنامه‌ها و ارتباط با سازنده
@@ -1272,148 +1133,59 @@ video{
 
             <div class="contact-list">
 
-                <a href="https://rubika.ir/Counter2Mod"
-                   target="_blank"
-                   rel="noopener"
-                   class="contact-card">
-
-                    <span class="contact-icon">
-                        <svg viewBox="0 0 64 64">
-                            <rect x="7" y="7" width="50" height="50" rx="16"
-                            fill="none" stroke="white" stroke-width="4.5"/>
-                            <path d="M18 20h28M18 32h22M18 44h15"
-                            fill="none" stroke="white" stroke-width="5"
-                            stroke-linecap="round"/>
-                        </svg>
-                    </span>
-
+                <a href="https://rubika.ir/Counter2Mod" target="_blank" rel="noopener" class="contact-card">
+                    <span class="contact-icon">📢</span>
                     <span class="contact-info">
                         <strong>کانال روبیکا</strong>
                         <small>کانال اصلی کانتر مود</small>
                     </span>
-
                     <span class="contact-arrow">←</span>
                 </a>
 
-                <a href="https://t.me/Counter2Mod"
-                   target="_blank"
-                   rel="noopener"
-                   class="contact-card">
-
-                    <span class="contact-icon">
-                        <svg viewBox="0 0 64 64">
-                            <path d="M56 10L8 29l19 7 7 19 22-45z"
-                            fill="none" stroke="white" stroke-width="5"
-                            stroke-linejoin="round"/>
-                            <path d="M27 36l12-10"
-                            fill="none" stroke="white" stroke-width="5"
-                            stroke-linecap="round"/>
-                        </svg>
-                    </span>
-
+                <a href="https://t.me/Counter2Mod" target="_blank" rel="noopener" class="contact-card">
+                    <span class="contact-icon">✈️</span>
                     <span class="contact-info">
                         <strong>کانال تلگرام</strong>
                         <small>عضویت در کانال تلگرام</small>
                     </span>
-
                     <span class="contact-arrow">←</span>
                 </a>
 
-                <a href="https://ble.ir/Countermod"
-                   target="_blank"
-                   rel="noopener"
-                   class="contact-card">
-
-                    <span class="contact-icon">
-                        <svg viewBox="0 0 64 64">
-                            <path d="M12 11h40a7 7 0 0 1 7 7v24a7 7 0 0 1-7 7H33L20 58v-9h-8a7 7 0 0 1-7-7V18a7 7 0 0 1 7-7z"
-                            fill="none" stroke="white" stroke-width="4.5"
-                            stroke-linejoin="round"/>
-                            <path d="M20 25h24M20 34h18"
-                            fill="none" stroke="white" stroke-width="5"
-                            stroke-linecap="round"/>
-                        </svg>
-                    </span>
-
+                <a href="https://ble.ir/Countermod" target="_blank" rel="noopener" class="contact-card">
+                    <span class="contact-icon">💬</span>
                     <span class="contact-info">
                         <strong>کانال بله</strong>
                         <small>صفحه کانتر مود در بله</small>
                     </span>
-
                     <span class="contact-arrow">←</span>
                 </a>
 
-                <a href="https://www.aparat.com/Abolfazl_Hakerr/shorts"
-                   target="_blank"
-                   rel="noopener"
-                   class="contact-card">
-
-                    <span class="contact-icon">
-                        <svg viewBox="0 0 64 64">
-                            <rect x="7" y="12" width="50" height="40" rx="10"
-                            fill="none" stroke="white" stroke-width="4.5"/>
-                            <path d="M27 22l17 10-17 10z"
-                            fill="white"/>
-                        </svg>
-                    </span>
-
+                <a href="https://www.aparat.com/Abolfazl_Hakerr/shorts" target="_blank" rel="noopener" class="contact-card">
+                    <span class="contact-icon">▶</span>
                     <span class="contact-info">
                         <strong>کانال آپارات</strong>
                         <small>ویدیوها و آموزش‌های کانتر مود</small>
                     </span>
-
                     <span class="contact-arrow">←</span>
                 </a>
 
                 <a href="https://rubika.ir/joing/BAFCGFBCE0SVOLBSWKUNPCLEJNAMITSH"
-                   target="_blank"
-                   rel="noopener"
-                   class="contact-card">
-
-                    <span class="contact-icon">
-                        <svg viewBox="0 0 64 64">
-                            <circle cx="23" cy="23" r="9"
-                            fill="none" stroke="white" stroke-width="5"/>
-                            <circle cx="45" cy="26" r="7"
-                            fill="none" stroke="white" stroke-width="5"/>
-                            <path d="M8 52c1-10 8-15 16-15s15 5 16 15M39 38c8 0 14 5 16 14"
-                            fill="none" stroke="white" stroke-width="5"
-                            stroke-linecap="round"/>
-                        </svg>
-                    </span>
-
+                   target="_blank" rel="noopener" class="contact-card">
+                    <span class="contact-icon">👥</span>
                     <span class="contact-info">
                         <strong>گپ روبیکا</strong>
                         <small>ورود به گپ و گفتگو</small>
                     </span>
-
                     <span class="contact-arrow">←</span>
                 </a>
 
                 <a href="https://rubika.ir/Abolfazl_Kazemi_SFG"
-                   target="_blank"
-                   rel="noopener"
-                   class="contact-card">
-
-                    <span class="contact-icon">
-                        <svg viewBox="0 0 64 64">
-                            <path d="M10 34a22 22 0 0 1 44 0v12a6 6 0 0 1-6 6h-7V37h13"
-                            fill="none" stroke="white" stroke-width="5"
-                            stroke-linecap="round"/>
-                            <path d="M10 37H7a5 5 0 0 0-5 5v4a6 6 0 0 0 6 6h7V37"
-                            fill="none" stroke="white" stroke-width="5"
-                            stroke-linecap="round"/>
-                            <path d="M41 52h6"
-                            fill="none" stroke="white" stroke-width="5"
-                            stroke-linecap="round"/>
-                        </svg>
-                    </span>
-
+                   target="_blank" rel="noopener" class="contact-card">
+                    <span class="contact-icon">🎧</span>
                     <span class="contact-info">
                         <strong>پشتیبانی</strong>
                         <small>ارتباط مستقیم با سازنده</small>
                     </span>
-
                     <span class="contact-arrow">←</span>
                 </a>
 
@@ -1469,6 +1241,7 @@ video{
 
         <div class="apps-list">
 
+            <!-- برنامه ۱ -->
             <div class="app-card">
 
                 <img
@@ -1499,6 +1272,7 @@ video{
 
             </div>
 
+            <!-- برنامه ۲ -->
             <div class="app-card">
 
                 <img
@@ -1522,6 +1296,37 @@ video{
                 <a
                     class="app-download"
                     href="https://cdn.imgurl.ir/uploads/v73960___.zip"
+                    target="_blank"
+                    rel="noopener">
+                    دانلود
+                </a>
+
+            </div>
+
+            <!-- برنامه ۳: هوش مصنوعی آفلاین -->
+            <div class="app-card">
+
+                <img
+                    class="app-image"
+                    src="https://cdn.imgurl.ir/uploads/w3713_InShot_20260816_020641964.png"
+                    alt="هوش مصنوعی آفلاین"
+                    loading="lazy">
+
+                <div class="app-info">
+
+                    <h3>
+                        هوش مصنوعی آفلاین
+                    </h3>
+
+                    <p>
+                        هوش مصنوعی پیشرفته آفلاین و آنلاین
+                    </p>
+
+                </div>
+
+                <a
+                    class="app-download"
+                    href="https://myket.ir/app/com.HushMasnuiiCounterMod"
                     target="_blank"
                     rel="noopener">
                     دانلود
@@ -1907,4 +1712,4 @@ window.addEventListener(
 </script>
 
 </body>
-          </html>
+    </html>
